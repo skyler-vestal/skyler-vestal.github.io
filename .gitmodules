@@ -1,0 +1,3 @@
+[submodule "more_charts"]
+	path = more_charts
+	url = git@github.com:skyler-vestal/MoreCharts.git
