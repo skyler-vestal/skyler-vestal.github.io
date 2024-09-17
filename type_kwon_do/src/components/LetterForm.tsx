@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+// @ts-ignore
 import kroman from "kroman";
 
 import { FrequencyData } from "../types";

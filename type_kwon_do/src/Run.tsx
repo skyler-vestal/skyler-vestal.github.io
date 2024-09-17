@@ -1,11 +1,9 @@
-import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import LetterForm from './components/LetterForm';
 import { AnswerData, FrequencyData } from './types';
 import EndScreen from './components/EndScreen';
-import { ColoredContainer } from './components/styles';
 
 interface Props {
     frequencyData: FrequencyData,

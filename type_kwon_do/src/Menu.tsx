@@ -1,4 +1,4 @@
-import { Box, Button, Divider, FormControl, InputLabel, MenuItem, Select, Slider, Stack, TextField, Typography } from '@mui/material';
+import { Button, Divider, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import frequencyData from './assets/data.json';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,12 +9,12 @@ type Settings = {
 }
 
 function Menu() {
-    const [settings, setSettings] = useState({
+    const [settings, setSettings] = useState<Settings>({
         mode: "Frequency",
         rounds: 5,
     });
 
-    const [charactersOpen, setCharactersOpen] = useState(false);
+    const [_, setCharactersOpen] = useState(false);
     
     return (
     <Stack spacing={4}>
