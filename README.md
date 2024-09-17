@@ -1,1 +1,0 @@
-![](https://cdn.7tv.app/emote/6284f52464619b37b7519018/4x.gif)
