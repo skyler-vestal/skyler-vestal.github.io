@@ -17,9 +17,9 @@ export const ColoredContainer = styled('div')`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 `;
 
-export const KoreanCharacter = styled(Typography)`
+export const KoreanCharacter = styled(Typography)<{ color?: string }>`
   font-size: 3rem; /* Larger font size for emphasis */
-  color: #007bff; /* Matching color with the border */
+  color: ${({ color }) => color || '#007bff'}; /* Use the provided color or default to #007bff */
   margin-bottom: 20px; /* Space between character and input box */
 `;
 
@@ -28,8 +28,17 @@ export const EndScreenCharacter = styled(Typography)`
   color: #007bff; /* Matching color with the border */
 `;
 
-export const StyledTextField = styled(TextField)`
+export const StyledTextField = styled(TextField)<{ borderColor?: string }>`
   & .MuiInputBase-input {
     font-size: 1.2rem; /* Larger text inside the input field */
+  }
+
+  & label.Mui-focused {
+    color: ${({ borderColor }) => borderColor || '#007bff'};
+  }
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border-color: ${({ borderColor }) => borderColor || '#007bff'};
+    }
   }
 `;

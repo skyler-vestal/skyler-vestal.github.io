@@ -7,13 +7,16 @@ import { KoreanCharacter, StyledTextField } from "./styles";
 
 interface Props {
     frequencyData: FrequencyData,
-    onAnswer: (isCorrect: boolean) => void
+    inReview: boolean,
+    onAnswer: (isCorrect: boolean) => void,
+    setInReview: (value: boolean) => void,
 }
 
-function LetterForm({ frequencyData, onAnswer }: Props) {
+function LetterForm({ frequencyData, onAnswer, inReview, setInReview }: Props) {
     const [currentCharacter, setCurrentCharacter] = useState<string>('');
     const [englishCharacter, setEnglishCharacter] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
+    const [shouldCount, setShouldCount] = useState<boolean>(true);
 
     function getCharacter() {
         const num = Math.floor(Math.random() * (frequencyData.total + 2));
@@ -29,13 +32,19 @@ function LetterForm({ frequencyData, onAnswer }: Props) {
         const char = getCharacter();
         setCurrentCharacter(char);
         setEnglishCharacter(kroman.parse(char));
-        console.log(kroman.parse(char));
     }
 
     function submitAnswer(answer: string) {
-        onAnswer(answer.toLowerCase() === englishCharacter.toLowerCase());
-        prepareRound();
-        setAnswer('');
+        const isCorrect = answer.toLowerCase() === englishCharacter.toLowerCase();
+        if (shouldCount) {
+            onAnswer(isCorrect);
+        }
+        setInReview(!isCorrect);
+        setAnswer(isCorrect ? '' : englishCharacter)
+        setShouldCount(isCorrect);
+        if (isCorrect) {
+            prepareRound();
+        }
     }
 
     useEffect(() => {
@@ -44,11 +53,12 @@ function LetterForm({ frequencyData, onAnswer }: Props) {
 
 
     return (<>
-        <KoreanCharacter>
+        <KoreanCharacter color={inReview ? '#E74C3C' : '#007BFF'}>
             {currentCharacter}
         </KoreanCharacter>
         <StyledTextField
             fullWidth
+            borderColor={inReview ? '#E74C3C' : '#007BFF'}
             variant="outlined"
             value={answer}
             onKeyDown={e => {
@@ -59,7 +69,10 @@ function LetterForm({ frequencyData, onAnswer }: Props) {
             }
             }
             onChange={
-                e => setAnswer(e.target.value)
+                e => {
+                    setInReview(false);
+                    setAnswer(e.target.value);
+                }
             }
         />
     </>);

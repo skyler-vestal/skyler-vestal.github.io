@@ -2,15 +2,16 @@ import { Button, Divider, FormControl, InputLabel, MenuItem, Select, Stack, Text
 import frequencyData from './assets/data.json';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Mode } from './types';
 
 type Settings = {
-    mode: string;
+    mode: Mode;
     rounds: number;
 }
 
 function Menu() {
     const [settings, setSettings] = useState<Settings>({
-        mode: "Frequency",
+        mode: Mode.LETTERS,
         rounds: 5,
     });
 
@@ -23,16 +24,17 @@ function Menu() {
             <InputLabel id="select-mode-label">Mode</InputLabel>
             <Select 
                 labelId="select-mode-label"
+                id="select-mode"
                 value={settings.mode}
                 label="Mode"
             >
-                <MenuItem value="Frequency">Frequency</MenuItem>
-                <MenuItem value="Uniform" disabled>Uniform</MenuItem>
+                <MenuItem value={Mode.LETTERS}>Letters</MenuItem>
+                <MenuItem value={Mode.WORDS} disabled>Words</MenuItem>
             </Select>
         </FormControl>
-        <Button variant="contained" onClick={() => setCharactersOpen(true)} disabled>
-            Characters
-        </Button>
+        {settings.mode === Mode.LETTERS && (<Button variant="contained" onClick={() => setCharactersOpen(true)} disabled>
+            Customize
+        </Button>)}
         <TextField
             label="Guesses"
             type="number"

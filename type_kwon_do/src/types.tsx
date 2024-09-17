@@ -13,3 +13,8 @@ export type TimeData = {
     startTime: Date;
     endTime: Date;
 }
+
+export enum Mode {
+    LETTERS = "Letters",
+    WORDS = "Words",
+}
